@@ -1,0 +1,41 @@
+# path
+dataset_original_path: /root/ml_process_feb23/data/raw/AER_credit_card_data.csv
+dataset_splitted_train_path: 
+- /root/ml_process_feb23/data/processed/x_train.pkl
+- /root/ml_process_feb23/data/processed/y_train.pkl
+dataset_splitted_valid_path: 
+- /root/ml_process_feb23/data/processed/x_valid.pkl
+- /root/ml_process_feb23/data/processed/y_valid.pkl
+dataset_splitted_test_path: 
+- /root/ml_process_feb23/data/processed/x_test.pkl
+- /root/ml_process_feb23/data/processed/y_test.pkl
+dataset_EDA_path: /root/ml_process_feb23/data/processed/EDA_df.pkl
+dataset_modelling_path: 
+- /root/ml_process_feb23/data/processed/df_train.pkl
+- /root/ml_process_feb23/data/processed/df_valid.pkl
+- /root/ml_process_feb23/data/processed/df_test.pkl
+dataset_train_balanced_path: 
+- /root/ml_process_feb23/data/processed/df_train_rus.pkl
+- /root/ml_process_feb23/data/processed/df_train_ros.pkl
+- /root/ml_process_feb23/data/processed/df_train_smote.pkl
+training_log_path:
+- /root/ml_process_feb23/logs/training_log_baseline.json
+- /root/ml_process_feb23/logs/training_log_alternative.json
+- /root/ml_process_feb23/logs/training_log_tuned.json
+production_model_path: /root/ml_process_feb23/models/best_model.pkl
+
+# columns by data type
+object_columns:
+- card
+- owner
+- selfemp
+float_columns:
+- age
+- income
+- share
+int_columns:
+- reports
+- dependents
+- months
+- majorcards
+- active
