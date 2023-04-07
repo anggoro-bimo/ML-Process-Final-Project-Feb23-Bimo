@@ -2,7 +2,7 @@ import yaml
 import joblib
 from datetime import datetime
 
-config_dir = "config/config.yaml"
+config_dir = "/root/ml_process_feb23/config/config.yaml"
 
 def time_stamp() -> datetime:
     # Return current date and time
@@ -19,11 +19,11 @@ def load_config() -> dict:
     # Return params in dict format
     return config
 
-def pickle_load(file_path: str):
+def pkl_load(file_path: str):
     # Load and return pickle file
     return joblib.load(file_path)
 
-def pickle_dump(data, file_path: str) -> None:
+def pkl_dump(data, file_path: str) -> None:
     # Dump data into file
     joblib.dump(data, file_path)
 
@@ -31,6 +31,6 @@ params = load_config()
 PRINT_DEBUG = params["print_debug"]
 
 def print_debug(messages: str) -> None:
-    # Check wheter user wants to use print or not
+    # Check whether user wants to use print or not
     if PRINT_DEBUG == True:
         print(time_stamp(), messages)
