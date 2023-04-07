@@ -1,12 +1,12 @@
 # path
 dataset_original_path: /root/ml_process_feb23/data/raw/AER_credit_card_data.csv
-dataset_splitted_train_path: 
+dataset_train_path: 
 - /root/ml_process_feb23/data/processed/x_train.pkl
 - /root/ml_process_feb23/data/processed/y_train.pkl
-dataset_splitted_valid_path: 
+dataset_valid_path: 
 - /root/ml_process_feb23/data/processed/x_valid.pkl
 - /root/ml_process_feb23/data/processed/y_valid.pkl
-dataset_splitted_test_path: 
+dataset_test_path: 
 - /root/ml_process_feb23/data/processed/x_test.pkl
 - /root/ml_process_feb23/data/processed/y_test.pkl
 dataset_EDA_path: /root/ml_process_feb23/data/processed/EDA_df.pkl
@@ -24,6 +24,9 @@ training_log_path:
 - /root/ml_process_feb23/logs/training_log_tuned.json
 production_model_path: /root/ml_process_feb23/models/best_model.pkl
 
+# Debug related
+print_debug: true
+
 # columns by data type
 object_columns:
 - card
@@ -33,8 +36,25 @@ float_columns:
 - age
 - income
 - share
+- expenditure
 int_columns:
 - reports
+- dependents
+- months
+- majorcards
+- active
+
+# columns by dependency related
+target:
+- card
+predictors:
+- reports
+- age
+- income
+- share
+- expenditure
+- owner
+- selfemp
 - dependents
 - months
 - majorcards
