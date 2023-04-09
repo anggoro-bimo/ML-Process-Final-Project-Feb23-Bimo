@@ -1,5 +1,7 @@
 # path
 dataset_original_path: /root/ml_process_feb23/data/raw/AER_credit_card_data.csv
+dataset_output_df_path: /root/ml_process_feb23/data/processed/output_df.pkl
+dataset_input_df_path: /root/ml_process_feb23/data/processed/input_df.pkl
 dataset_train_path: 
 - /root/ml_process_feb23/data/processed/x_train.pkl
 - /root/ml_process_feb23/data/processed/y_train.pkl
@@ -25,9 +27,9 @@ training_log_path:
 production_model_path: /root/ml_process_feb23/models/best_model.pkl
 
 # Debug related
-print_debug: true
+print_debug: True
 
-# columns by data type
+# columns by data type related
 object_columns:
 - card
 - owner
@@ -44,6 +46,7 @@ int_columns:
 - majorcards
 - active
 
+
 # columns by dependency related
 target:
 - card
@@ -59,3 +62,61 @@ predictors:
 - months
 - majorcards
 - active
+
+# Range of data related
+range_reports:
+- 0
+- 15
+range_age:
+- 18
+- 99
+range_income:
+- 0
+- 150000
+range_share:
+- 0
+- 100
+range_expenditure:
+- 0
+- 5000
+range_dependents:
+- 0
+- 6
+range_months:
+- 0
+- 600
+range_majorcards:
+- 0
+- 1
+range_active:
+- 0
+- 50
+range_owner:
+- 'yes'
+- 'no'
+range_selfemp:
+- 'yes'
+- 'no'
+range_card: 
+- 'yes'
+- 'no'
+
+# Group of features for preprocessing related
+cols_to_log:
+- income
+- expenditure
+- months
+num_columns:
+- reports
+- age
+- income_log
+- share
+- expenditure_log
+- dependents
+- months_log
+- majorcards
+- active
+cat_columns:
+- owner
+- selfemp
+- card
