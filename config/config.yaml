@@ -17,9 +17,12 @@ dataset_modelling_path:
 - /root/ml_process_feb23/data/processed/df_valid.pkl
 - /root/ml_process_feb23/data/processed/df_test.pkl
 dataset_train_balanced_path: 
-- /root/ml_process_feb23/data/processed/df_train_rus.pkl
-- /root/ml_process_feb23/data/processed/df_train_ros.pkl
-- /root/ml_process_feb23/data/processed/df_train_smote.pkl
+- /root/ml_process_feb23/data/processed/x_train_rus.pkl
+- /root/ml_process_feb23/data/processed/y_train_rus.pkl
+- /root/ml_process_feb23/data/processed/x_train_ros.pkl
+- /root/ml_process_feb23/data/processed/y_train_ros.pkl
+- /root/ml_process_feb23/data/processed/x_train_smote.pkl
+- /root/ml_process_feb23/data/processed/y_train_smote.pkl
 training_log_path:
 - /root/ml_process_feb23/logs/training_log_baseline.json
 - /root/ml_process_feb23/logs/training_log_alternative.json
@@ -102,6 +105,10 @@ range_card:
 - 'no'
 
 # Group of features for preprocessing related
+datasets:
+- df_train
+- df_valid
+- df_test
 cols_to_log:
 - income
 - expenditure
@@ -120,3 +127,47 @@ cat_columns:
 - owner
 - selfemp
 - card
+bins_age:
+- 18
+- 24
+- 40
+- 56
+- 75
+- 99
+labels_age:
+- 1
+- 2
+- 3
+- 4
+- 5
+bins_reports:
+- 0
+- .99
+- 2
+- 14
+labels_reports:
+- 0
+- 1
+- 2
+bins_dependents:
+- 0
+- 0.99
+- 1.99
+- 3
+- 6
+labels_dependents:
+- 0
+- 1
+- 2
+- 3
+bins_active:
+- 0
+- 0.99
+- 4
+- 6
+- 46
+labels_active:
+- 0
+- 1
+- 2
+- 3
