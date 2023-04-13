@@ -1,12 +1,7 @@
 import yaml
 import joblib
-from datetime import datetime
 
 config_dir = "/root/ml_process_feb23/config/config.yaml"
-
-def time_stamp() -> datetime:
-    # Return current date and time
-    return datetime.now()
 
 def load_config() -> dict: 
     # Try to load yaml file
