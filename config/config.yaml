@@ -104,7 +104,7 @@ range_card:
 - 'yes'
 - 'no'
 
-# Group of features for preprocessing related
+# Group of features/parameters for preprocessing related
 datasets:
 - df_train
 - df_valid
@@ -113,6 +113,10 @@ cols_to_log:
 - income
 - expenditure
 - months
+log_cols:
+- income_log
+- expenditure_log
+- months_log
 num_columns:
 - reports
 - age
@@ -171,3 +175,15 @@ labels_active:
 - 1
 - 2
 - 3
+
+# Group of features/parameters for modelling related
+binned_cols:
+- age_bin
+- reports_bin
+- dependents_bin
+- active_bin
+original_cols:
+- age
+- reports
+- dependents
+- active
