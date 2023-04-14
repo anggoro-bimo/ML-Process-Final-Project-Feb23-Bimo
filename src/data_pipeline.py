@@ -117,7 +117,7 @@ if __name__ == "__main__":
     config_data = util.load_config()
 
     # 2. Loading dataset
-    credit_data = read_raw_data(config["dataset_original_path"])
+    credit_data = read_raw_data(config)
 
     # 3. Drop value <18 in feature 'age'
     credit_data = del_rows(credit_data, 'age', 18)

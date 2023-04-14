@@ -34,7 +34,8 @@ def load_dataset(config: dict) -> pd.DataFrame:
     # Return 3 set of data
     return df_train , df_valid , df_test
 
-def cols_transform(dataset: pd.DataFrame):
+# Create the function for data transformation
+def cols_transform(dataset):
     """A function to transform the feature(s) value in the dataset into logarithmic value.
     The defined features are transformed and appended to the dataset,
     after the transformation and appendment of all features are done
@@ -47,7 +48,7 @@ def cols_transform(dataset: pd.DataFrame):
         dataset[transformed] = np.log10(dataset[col]+1)
         
         log_cols.append(transformed)
-    dataset.drop(cols_to_logtransf, axis = 1, inplace = True)
+    dataset.drop(config["cols_to_log"], axis = 1, inplace = True)
     return dataset
 
 def label_encoding(dataset: pd.DataFrame):
@@ -114,11 +115,11 @@ if __name__ == "__main__":
 
     # 3. Data Transformation
     # 3.1. Training dataset
-    log_cols = cols_transform(df_train)
+    df_train = cols_transform(df_train)
     # 3.2. Validation dataset
-    log_cols = cols_transform(df_valid)
+    df_valid = cols_transform(df_valid)
     # 3.1. Testing dataset
-    log_cols = cols_transform(df_test)
+    df_test = cols_transform(df_test)
 
     # 4. Label Encoding
     # 4.1. Training dataset
