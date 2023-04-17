@@ -4,7 +4,7 @@ import sys
 sys.path.append('/root/ml_process_feb23/')
 import src.util as utils
 from imblearn.under_sampling import RandomUnderSampler
-from imblearn.over_sampling import RandomOverSampler, SMOTE
+from imblearn.over_sampling import RandomOverSampler
 
 def load_dataset(config: dict) -> pd.DataFrame:
     # Load every set of data
@@ -88,30 +88,27 @@ def balancing(dataset: pd.DataFrame,
     
     x_train_rus, y_train_rus = RandomUnderSampler(random_state = 46).fit_resample(x, y)
     x_train_ros, y_train_ros = RandomOverSampler(random_state = 85).fit_resample(x, y)
-    x_train_smote, y_train_smote = SMOTE(random_state = 1205).fit_resample(x, y)
 
     if save_file:
         utils.pkl_dump(x_train_rus, config["dataset_train_balanced_path"][0])
         utils.pkl_dump(y_train_rus, config["dataset_train_balanced_path"][1])
         utils.pkl_dump(x_train_ros, config["dataset_train_balanced_path"][2])
         utils.pkl_dump(y_train_ros, config["dataset_train_balanced_path"][3])
-        utils.pkl_dump(x_train_smote, config["dataset_train_balanced_path"][4])
-        utils.pkl_dump(y_train_smote, config["dataset_train_balanced_path"][5])
         
     if return_file: 
         return x_train_rus, y_train_rus, \
-               x_train_ros, y_train_ros, \
-               x_train_smote, y_train_smote
-
+               x_train_ros, y_train_ros
 
 
 if __name__ == "__main__":
 
     # 1. Load configuration file
-    config = util.load_config()
+    config = utils.load_config()
+    print("Configuration file loaded.")
 
     # 2. Load datasets
     df_train , df_valid , df_test = load_dataset(config)
+    print("Datasets loaded.")
 
     # 3. Data Transformation
     # 3.1. Training dataset
@@ -120,6 +117,7 @@ if __name__ == "__main__":
     df_valid = cols_transform(df_valid)
     # 3.1. Testing dataset
     df_test = cols_transform(df_test)
+    print("Columns value transformed.")
 
     # 4. Label Encoding
     # 4.1. Training dataset
@@ -128,6 +126,7 @@ if __name__ == "__main__":
     df_valid = label_encoding(df_valid)
     # 4.1. Testing dataset
     df_test = label_encoding(df_test)
+    print("Columns value encoded.")
 
     # 5. Data Binning
     # 5.1. feature 'age'
@@ -146,6 +145,7 @@ if __name__ == "__main__":
     df_train = binning(df_train, 'active', config["bins_active"], config["labels_active"])
     df_valid = binning(df_valid, 'active', config["bins_active"], config["labels_active"])
     df_test = binning(df_test, 'active', config["bins_active"], config["labels_active"])
+    print("Columns value binned.")
 
     # 6. Value Division on the 'income_log' feature
     # 6.1. Training dataset
@@ -154,7 +154,15 @@ if __name__ == "__main__":
     df_valid = division(df_valid, 'income_log')
     # 6.1. Training dataset
     df_test = division(df_test, 'income_log')
+    print("Column value divided.")
+
+    # 7. Dump the datasets
+    utils.pkl_dump(df_train, config["dataset_modelling_path"][0])
+    utils.pkl_dump(df_valid, config["dataset_modelling_path"][1])
+    utils.pkl_dump(df_test, config["dataset_modelling_path"][2])
+    print("Datasets dumped.")
     
-    # 7. Data Balancing
-    x_train_rus, y_train_rus, x_train_ros, y_train_ros, x_train_smote, y_train_smote = balancing(df_train)
+    # 8. Data Balancing
+    x_train_rus, y_train_rus, x_train_ros, y_train_ros = balancing(df_train)
+    print("Imbalance data treated, datasets dumped as pickles. Ready to progress to modelling.")
     

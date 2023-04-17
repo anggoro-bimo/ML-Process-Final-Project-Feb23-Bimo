@@ -78,11 +78,24 @@ def split_input_output(dataset: pd.DataFrame,
     if return_file:
         return output_df, input_df
 
+def split_train_test(x, y, TEST_SIZE):
+    """Split the data into the training and test data,
+    stratify parameter is activated,
+    this function will be reproduced later as the data-splitting process further"""
+    
+    x_train, x_test, y_train, y_test = train_test_split(x,
+                                                        y,
+                                                        test_size=TEST_SIZE,
+                                                        random_state=46,
+                                                        stratify=y)
+
+    return x_train, x_test, y_train, y_test
+
 def split_data(data_input: pd.DataFrame, 
                data_output: pd.DataFrame, 
                save_file: bool = True,
                return_file: bool = True, 
-               TEST_SIZE: flt = 0.17):
+               TEST_SIZE: float = 0.17):
     """Split the data into the training, validation and test data,
     first split process will return into the train and test data,
     the train data resulted from the first split will be splitted further into the train and validation data.
@@ -114,19 +127,24 @@ def split_data(data_input: pd.DataFrame,
 
 if __name__ == "__main__":
     # 1. Load configuration file
-    config_data = util.load_config()
+    config = utils.load_config()
+    print("Configuration file loaded.")
 
     # 2. Loading dataset
     credit_data = read_raw_data(config)
+    print("Raw dataset loaded.")
 
     # 3. Drop value <18 in feature 'age'
     credit_data = del_rows(credit_data, 'age', 18)
+    print("Specific rows dropped.")
 
     # 4. Data Defense
     check_data(credit_data, config)
+    print("Data defense mechanism activated.")
 
     # 5. Data Splitting, separate the predictors and target
     output_df, input_df = split_input_output(credit_data, target_column = "card", save_file = False)
 
     # 6. Data Splitting and saving as pickles
     x_train, y_train, x_valid, y_valid, x_test, y_test = split_data(input_df, output_df)
+    print("Raw dataset splitted and dumped as pickles. Ready to progress to data preprocessing.")
