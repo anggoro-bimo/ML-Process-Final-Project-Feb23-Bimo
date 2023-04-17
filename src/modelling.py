@@ -1,16 +1,5 @@
-import pandas as pd
-from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from xgboost import XGBClassifier
-from sklearn.naive_bayes import CategoricalNB, GaussianNB
-from datetime import datetime
-from tqdm import tqdm
-import json
-import copy
-import hashlib
+from sklearn.metrics import classification_report
 import sys
 sys.path.append('/root/ml_process_feb23/')
 import src.util as utils
@@ -32,11 +21,13 @@ def load_datasets(config: dict) -> pd.DataFrame:
 
 def get_binned_features(dataset: pd.DataFrame):
     # Drop the features with original value
-    dataset = dataset.drop(config["original_cols"], axis = 1)
-    return dataset
+    
+    dataset_bin = dataset.drop(config["original_cols"], axis = 1)
+    return dataset_bin
 
-def train_model(x_train_ros, y_train, x_valid, y_valid):
-    model = config["production_model_path"]
+def train_model(x_train_ros, y_train_ros, x_valid, y_valid):
+    model = SVC(random_state = 23)
+    model.fit(x_train_ros, y_train_ros)
 
     y_pred = model.predict(x_valid)
     print(classification_report(y_valid, y_pred))
@@ -54,11 +45,14 @@ if __name__ == "__main__" :
 
     # 3. Include the binned features
     # 3.1. x_train
-    x_train_ros = get_binned_features(x_train_ros)
+    x_train_ros_bin = get_binned_features(x_train_ros)
     # 3.2 x_valid
-    x_valid = get_binned_features(x_valid)
+    x_valid_bin = get_binned_features(x_valid)
     # 3.2 x_test
-    x_test = get_binned_features(x_test)
+    x_test_bin = get_binned_features(x_test)
 
     # 4. Train model
-    model = train_model(x_train_ros, y_train, x_valid, y_valid)
+    model = train_model(x_train_ros, y_train_ros, x_valid, y_valid)
+
+    # 5. Dump model
+    utils.pkl_dump(best_model, config["production_model_path"])
