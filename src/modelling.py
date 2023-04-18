@@ -1,6 +1,6 @@
 import pandas as pd
-from sklearn.svm import SVC
-from sklearn.metrics import classification_report
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report, ConfusionMatrixDisplay
 import sys
 sys.path.append('/root/ml_process_feb23/')
 import src.util as utils
@@ -34,15 +34,15 @@ def train_model(x_train_bin, y_train, \
                 x_valid, y_valid, \
                 x_test, y_test):
     
-    best_model = SVC(random_state = 23)
+    best_model = DecisionTreeClassifier(random_state = 34)
     best_model.fit(x_train_bin, y_train)
 
     y_pred_on_valid = best_model.predict(x_valid_bin)
-    print("The Classification Report on validation dataset")
+    print("The Classification Report and Confusion Matrix on validation dataset")
     print(classification_report(y_valid, y_pred_on_valid))
-
+    
     y_pred_on_test = best_model.predict(x_test_bin)
-    print("The Classification Report on testing dataset")
+    print("The Classification Report and Confusion Matrix on testing dataset")
     print(classification_report(y_test, y_pred_on_test))
 
     return best_model
