@@ -187,3 +187,17 @@ original_cols:
 - reports
 - dependents
 - active
+
+# Group of features/parameters for api related
+predictors_api:
+- owner
+- selfemp
+- reports
+- age
+- dependents
+- months
+- majorcards
+- active
+- income
+- share
+- expenditure

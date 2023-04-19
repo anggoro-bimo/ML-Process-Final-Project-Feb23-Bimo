@@ -40,7 +40,7 @@ def train_model(x_train_bin, y_train, \
     y_pred_on_valid = best_model.predict(x_valid_bin)
     print("The Classification Report and Confusion Matrix on validation dataset")
     print(classification_report(y_valid, y_pred_on_valid))
-    
+
     y_pred_on_test = best_model.predict(x_test_bin)
     print("The Classification Report and Confusion Matrix on testing dataset")
     print(classification_report(y_test, y_pred_on_test))
@@ -48,7 +48,7 @@ def train_model(x_train_bin, y_train, \
     return best_model
 
 if __name__ == "__main__" :
-    # 1. Load config file
+    # 1. Loading configuration file
     config = utils.load_config()
     print("Configuration file loaded.")
 

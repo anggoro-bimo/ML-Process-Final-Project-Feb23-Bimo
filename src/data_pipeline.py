@@ -126,7 +126,7 @@ def split_data(data_input: pd.DataFrame,
 
 
 if __name__ == "__main__":
-    # 1. Load configuration file
+    # 1. Loading configuration file
     config = utils.load_config()
     print("Configuration file loaded.")
 
