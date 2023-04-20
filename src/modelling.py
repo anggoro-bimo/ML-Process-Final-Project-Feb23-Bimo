@@ -24,10 +24,10 @@ def load_datasets(config: dict) -> pd.DataFrame:
            x_valid, y_valid, \
            x_test, y_test,
 
-def get_binned_features(dataset: pd.DataFrame):
+def get_binned_features(dataset: pd.DataFrame, cols):
     # Drop the features with original value
     
-    dataset_bin = dataset.drop(config["original_cols"], axis = 1)
+    dataset_bin = dataset.drop(cols, axis = 1)
     return dataset_bin
 
 def train_model(x_train_bin, y_train, \
@@ -60,11 +60,11 @@ if __name__ == "__main__" :
 
     # 3. Include the binned features
     # 3.1. x_train
-    x_train_bin = get_binned_features(x_train)
+    x_train_bin = get_binned_features(x_train, config["original_cols"])
     # 3.2 x_valid
-    x_valid_bin = get_binned_features(x_valid)
+    x_valid_bin = get_binned_features(x_valid, config["original_cols"])
     # 3.2 x_test
-    x_test_bin = get_binned_features(x_test)
+    x_test_bin = get_binned_features(x_test, config["original_cols"])
     print("The binned features included to model training.")
 
     # 4. Train model

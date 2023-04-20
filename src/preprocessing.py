@@ -32,32 +32,32 @@ def load_dataset(config: dict) -> pd.DataFrame:
     )
 
     # Return 3 set of data
-    return df_train , df_valid , df_test
+    return df_train, df_valid, df_test
 
 # Create the function for data transformation
-def cols_transform(dataset):
+def cols_transform(dataset, cols: list):
     """A function to transform the feature(s) value in the dataset into logarithmic value.
     The defined features are transformed and appended to the dataset,
     after the transformation and appendment of all features are done
     the features with original value are dropped from the dataset"""
 
     log_cols = []
-    for i in range (len(config["cols_to_log"])):
-        col = config["cols_to_log"][i]
+    for i in range (len(cols)):
+        col = cols[i]
         transformed = col + "_log" 
         dataset[transformed] = np.log10(dataset[col]+1)
         
         log_cols.append(transformed)
-    dataset.drop(config["cols_to_log"], axis = 1, inplace = True)
+    dataset.drop(cols, axis = 1, inplace = True)
     return dataset
 
-def label_encoding(dataset: pd.DataFrame):
+def label_encoding(dataset: pd.DataFrame, cols: list):
     """A function to convert the categorical values into the numeric ones.
     The list of categorical features are encoded by .map function,
     returning a dataset with the features encoded."""
 
-    for i in range (len(config["cat_columns"])):
-        col = config["cat_columns"][i]
+    for i in range (len(cols)):
+        col = cols[i]
         dataset[col] = dataset[col].map({'yes':1, 'no':0})
     return dataset
 
@@ -66,7 +66,7 @@ def binning(dataset: pd.DataFrame, col: str, bins: list, labels: list):
     Creates a new feature contains the value defined in the labels parameter."""
     
     binned = col +"_bin"
-    dataset[binned] = pd.cut(df_valid[col] , bins=bins, labels=labels, include_lowest=True).astype(int)
+    dataset[binned] = pd.cut(dataset[col] , bins=bins, labels=labels, include_lowest=True).astype(int)
     return dataset
 
 def division(dataset: pd.DataFrame, col: str):
@@ -107,25 +107,25 @@ if __name__ == "__main__":
     print("Configuration file loaded.")
 
     # 2. Load datasets
-    df_train , df_valid , df_test = load_dataset(config)
+    df_train, df_valid, df_test = load_dataset(config)
     print("Datasets loaded.")
 
     # 3. Data Transformation
     # 3.1. Training dataset
-    df_train = cols_transform(df_train)
+    df_train = cols_transform(df_train, config["cols_to_log"])
     # 3.2. Validation dataset
-    df_valid = cols_transform(df_valid)
+    df_valid = cols_transform(df_valid, config["cols_to_log"])
     # 3.1. Testing dataset
-    df_test = cols_transform(df_test)
+    df_test = cols_transform(df_test, config["cols_to_log"])
     print("Columns value transformed.")
 
     # 4. Label Encoding
     # 4.1. Training dataset
-    df_train = label_encoding(df_train)
+    df_train = label_encoding(df_train, config["cat_columns"])
     # 4.1. Validation dataset
-    df_valid = label_encoding(df_valid)
+    df_valid = label_encoding(df_valid, config["cat_columns"])
     # 4.1. Testing dataset
-    df_test = label_encoding(df_test)
+    df_test = label_encoding(df_test, config["cat_columns"])
     print("Columns value encoded.")
 
     # 5. Data Binning
