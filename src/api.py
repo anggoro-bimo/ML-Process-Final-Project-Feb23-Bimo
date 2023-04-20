@@ -7,6 +7,7 @@ sys.path.append('/root/ml_process_feb23/')
 import src.util as utils
 import src.data_pipeline as pipeline
 import src.preprocessing as preprocessing
+import src.modelling as modelling
 
 # Loading configuration file
 config = utils.load_config()
@@ -15,7 +16,7 @@ config = utils.load_config()
 model_data = utils.pkl_load(config["production_model_path"])
 
 # Define input data
-class InputData(BaseModel):
+class api_data(BaseModel):
 
     owner: str
     selfemp: str
@@ -38,10 +39,9 @@ def home():
 
 # Prediction page
 @app.post("/predict/")
-def predict(data: InputData):    
+def predict(data: api_data):    
     # Convert data to dataframe
     data = pd.DataFrame(data).set_index(0).T.reset_index(drop = True)  # type: ignore
-    data.columns = config["predictors_api"]
 
     # Convert dtype
     data = pd.concat(
@@ -53,11 +53,23 @@ def predict(data: InputData):
         axis = 1
     )
 
-    # Check range data
-    try:
-        pipeline.check_data(data, config, True)  # type: ignore
-    except AssertionError as ae:
-        return {"res": [], "error_msg": str(ae)}
+    # Data transformation
+    data = preprocessing.cols_transform(data, config["cols_to_log"])
+
+    # Label encoding
+    data = preprocessing.label_encoding(data, config["predictors_cat"])
+
+    # Data binning
+    data = preprocessing.binning(data, 'age', config["bins_age"], config["labels_age"])
+    data = preprocessing.binning(data, 'reports', config["bins_reports"], config["labels_reports"])
+    data = preprocessing.binning(data, 'dependents', config["bins_dependents"], config["labels_dependents"])
+    data = preprocessing.binning(data, 'active', config["bins_active"], config["labels_active"])
+
+    # Include the binned features for fitting the model
+    data = modelling.get_binned_features(data, config["original_cols"])
+
+    # Value division
+    data = preprocessing.division(data, 'income_log')
 
     # Predict data
     y_pred = model_data.predict(data)
@@ -66,7 +78,7 @@ def predict(data: InputData):
         y_pred = "Credit card application is not approved."
     else:
         y_pred = "Your credit card application is approved!"
-    return {"res" : y_pred, "error_msg": ""}
+    return {"result" : y_pred, "error_msg": ""}
 
 if __name__ == "__main__":
     uvicorn.run("api:app", host = "0.0.0.0", port = 8080)
