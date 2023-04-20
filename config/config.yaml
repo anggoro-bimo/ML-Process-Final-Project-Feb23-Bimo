@@ -95,14 +95,14 @@ range_active:
 - 0
 - 50
 range_owner:
-- 'yes'
-- 'no'
+- "yes"
+- "no"
 range_selfemp:
-- 'yes'
-- 'no'
+- "yes"
+- "no"
 range_card: 
-- 'yes'
-- 'no'
+- "yes"
+- "no"
 
 # Group of features/parameters for preprocessing related
 datasets:
@@ -201,3 +201,7 @@ predictors_api:
 - income
 - share
 - expenditure
+
+predictors_cat:
+- owner
+- selfemp
