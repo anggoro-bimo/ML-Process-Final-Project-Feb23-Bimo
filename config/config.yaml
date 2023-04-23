@@ -21,12 +21,9 @@ dataset_train_balanced_path:
 - /root/ml_process_feb23/data/processed/y_train_rus.pkl
 - /root/ml_process_feb23/data/processed/x_train_ros.pkl
 - /root/ml_process_feb23/data/processed/y_train_ros.pkl
-- /root/ml_process_feb23/data/processed/x_train_smote.pkl
-- /root/ml_process_feb23/data/processed/y_train_smote.pkl
 training_log_path:
 - /root/ml_process_feb23/logs/training_log_baseline.json
 - /root/ml_process_feb23/logs/training_log_alternative.json
-- /root/ml_process_feb23/logs/training_log_tuned.json
 production_model_path: /root/ml_process_feb23/models/best_model.pkl
 
 # Debug related

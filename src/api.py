@@ -18,18 +18,18 @@ model_data = utils.pkl_load(config["production_model_path"])
 # Define input data
 class api_data(BaseModel):
 
-    owner: str
-    selfemp: str
     reports: int
     age: int
+    income: float
+    share: float
+    expenditure: float
+    owner: str
+    selfemp: str
     dependents: int
     months: int
     majorcards: int
     active: int
-    income: float
-    share: float
-    expenditure: float
-
+    
 app = FastAPI()
 
 # Landing page
@@ -46,9 +46,10 @@ def predict(data: api_data):
     # Convert dtype
     data = pd.concat(
         [
-            data[config["predictors_api"][0:2]],
-            data[config["predictors_api"][2:8]].astype(int),
-            data[config["predictors_api"][8:]].astype(float)
+            data[config["predictors"][:2]].astype(int),
+            data[config["predictors"][2:5]].astype(float),
+            data[config["predictors"][5:7]].astype(object),
+            data[config["predictors"][7:]].astype(int)
         ],
         axis = 1
     )
@@ -78,7 +79,8 @@ def predict(data: api_data):
         y_pred = "Credit card application is not approved."
     else:
         y_pred = "Your credit card application is approved!"
-    return {"result" : y_pred, "error_msg": ""}
+    
+    return {"result" : y_pred, "error_msg": "ERROR!"}
 
 if __name__ == "__main__":
     uvicorn.run("api:app", host = "0.0.0.0", port = 8080)

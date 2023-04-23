@@ -20,13 +20,13 @@ def check_data(input_data: pd.DataFrame, config: dict, api: bool = False):
     config = copy.deepcopy(config)
 
     if not api:
-            # Check data types
-            assert input_data.select_dtypes("object").columns.to_list() == \
-                config["object_columns"], "input error, please fill the column(s) with 'yes' or 'no'."
-            assert input_data.select_dtypes("int").columns.to_list() == \
-                config["int_columns"], "input error, please fill the column(s) with any numeric character."
-            assert input_data.select_dtypes("float").columns.to_list() == \
-                config["float_columns"], "input error, please fill the column(s) with any numeric (decimal value is allowed) character."
+        # Check data types
+        assert input_data.select_dtypes("string").columns.to_list() == \
+            config["object_columns"], "input error, please fill the column(s) with 'yes' or 'no'."
+        assert input_data.select_dtypes("int").columns.to_list() == \
+            config["int_columns"], "input error, please fill the column(s) with any numeric character."
+        assert input_data.select_dtypes("float").columns.to_list() == \
+            config["float_columns"], "input error, please fill the column(s) with any numeric (decimal value is allowed) character."
     else:
         # In case checking data from api
         # Exclude the "card" feature, which is not a predictor
@@ -34,7 +34,7 @@ def check_data(input_data: pd.DataFrame, config: dict, api: bool = False):
         del object_columns[0] 
 
         # Check data types
-        assert input_data.select_dtypes("object").columns.to_list() == \
+        assert input_data.select_dtypes("string").columns.to_list() == \
             object_columns, "an error occurs in object column(s)."       
 
     assert set(input_data[config["object_columns"][1]]).issubset(set(config["range_owner"])), \
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     print("Specific rows dropped.")
 
     # 4. Data Defense
-    check_data(credit_data, config)
+    check_data(credit_data, config, api = True)
     print("Data defense mechanism activated.")
 
     # 5. Data Splitting, separate the predictors and target
