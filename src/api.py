@@ -3,7 +3,8 @@ from pydantic import BaseModel
 import uvicorn
 import pandas as pd
 import sys
-sys.path.append('/root/ml_process_feb23/')
+PATH = "/home/er_bim/ML-Process-Final-Project-Feb23-Bimo/"
+sys.path.append(PATH)
 import src.util as utils
 import src.data_pipeline as pipeline
 import src.preprocessing as preprocessing
@@ -46,8 +47,8 @@ def predict(data: api_data):
     # Convert dtype
     data = pd.concat(
         [
-            data[config["predictors"][:2]].astype(int),
-            data[config["predictors"][2:5]].astype(float),
+            data[config["predictors"][0]].astype(int),
+            data[config["predictors"][1:5]].astype(float),
             data[config["predictors"][5:7]].astype(object),
             data[config["predictors"][7:]].astype(int)
         ],

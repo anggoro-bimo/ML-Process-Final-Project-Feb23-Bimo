@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 import sys
-sys.path.append('/root/ml_process_feb23/')
+PATH = "/home/er_bim/ML-Process-Final-Project-Feb23-Bimo/"
+sys.path.append(PATH)
 import src.util as utils
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.over_sampling import RandomOverSampler
@@ -35,7 +36,7 @@ def load_dataset(config: dict) -> pd.DataFrame:
     return df_train, df_valid, df_test
 
 # Create the function for data transformation
-def cols_transform(dataset, cols: list):
+def cols_transform(dataset: pd.DataFrame, cols: list):
     """A function to transform the feature(s) value in the dataset into logarithmic value.
     The defined features are transformed and appended to the dataset,
     after the transformation and appendment of all features are done
@@ -165,4 +166,5 @@ if __name__ == "__main__":
     # 8. Data Balancing
     x_train_rus, y_train_rus, x_train_ros, y_train_ros = balancing(df_train)
     print("Imbalance data treated, datasets dumped as pickles. Ready to progress to modelling.")
+    print(np.log10(10))
     

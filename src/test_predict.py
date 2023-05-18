@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
-sys.path.append('/root/ml_process_feb23/')
+PATH = "/home/er_bim/ML-Process-Final-Project-Feb23-Bimo/"
+sys.path.append(PATH)
 import src.util as utils
 import src.preprocessing as preprocessing
 import src.modelling as modelling

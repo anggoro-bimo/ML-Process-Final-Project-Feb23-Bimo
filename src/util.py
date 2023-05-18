@@ -1,7 +1,7 @@
 import yaml
 import joblib
 
-config_dir = "/root/ml_process_feb23/config/config.yaml"
+config_dir = "/home/er_bim/ML-Process-Final-Project-Feb23-Bimo/config/config.yaml"
 
 def load_config() -> dict: 
     # Try to load yaml file

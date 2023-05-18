@@ -2,7 +2,8 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import classification_report, ConfusionMatrixDisplay
 import sys
-sys.path.append('/root/ml_process_feb23/')
+PATH = "/home/er_bim/ML-Process-Final-Project-Feb23-Bimo/"
+sys.path.append(PATH)
 import src.util as utils
 
 def load_datasets(config: dict) -> pd.DataFrame:
