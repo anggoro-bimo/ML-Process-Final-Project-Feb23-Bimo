@@ -1,30 +1,31 @@
 # path
-dataset_original_path: /root/ml_process_feb23/data/raw/AER_credit_card_data.csv
-dataset_output_df_path: /root/ml_process_feb23/data/processed/output_df.pkl
-dataset_input_df_path: /root/ml_process_feb23/data/processed/input_df.pkl
+PATH: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo
+dataset_original_path: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/raw/AER_credit_card_data.csv
+dataset_output_df_path: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/output_df.pkl
+dataset_input_df_path: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/input_df.pkl
 dataset_train_path: 
-- /root/ml_process_feb23/data/processed/x_train.pkl
-- /root/ml_process_feb23/data/processed/y_train.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/x_train.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/y_train.pkl
 dataset_valid_path: 
-- /root/ml_process_feb23/data/processed/x_valid.pkl
-- /root/ml_process_feb23/data/processed/y_valid.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/x_valid.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/y_valid.pkl
 dataset_test_path: 
-- /root/ml_process_feb23/data/processed/x_test.pkl
-- /root/ml_process_feb23/data/processed/y_test.pkl
-dataset_EDA_path: /root/ml_process_feb23/data/processed/EDA_df.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/x_test.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/y_test.pkl
+dataset_EDA_path: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/EDA_df.pkl
 dataset_modelling_path: 
-- /root/ml_process_feb23/data/processed/df_train.pkl
-- /root/ml_process_feb23/data/processed/df_valid.pkl
-- /root/ml_process_feb23/data/processed/df_test.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/df_train.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/df_valid.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/df_test.pkl
 dataset_train_balanced_path: 
-- /root/ml_process_feb23/data/processed/x_train_rus.pkl
-- /root/ml_process_feb23/data/processed/y_train_rus.pkl
-- /root/ml_process_feb23/data/processed/x_train_ros.pkl
-- /root/ml_process_feb23/data/processed/y_train_ros.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/x_train_rus.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/y_train_rus.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/x_train_ros.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/y_train_ros.pkl
 training_log_path:
-- /root/ml_process_feb23/logs/training_log_baseline.json
-- /root/ml_process_feb23/logs/training_log_alternative.json
-production_model_path: /root/ml_process_feb23/models/best_model.pkl
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/logs/training_log_baseline.json
+- /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/logs/training_log_alternative.json
+production_model_path: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/models/best_model.pkl
 
 # Debug related
 print_debug: True
