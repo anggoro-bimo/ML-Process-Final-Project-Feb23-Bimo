@@ -32,15 +32,15 @@ def check_data(input_data: pd.DataFrame, config: dict, api: bool = False):
         # In case checking data from api
         # Exclude the "card" feature, which is not a predictor
         object_columns = config["object_columns"]
-        del object_columns[0] 
+        del object_columns[2] 
 
         # Check data types
         assert input_data.select_dtypes("object").columns.to_list() == \
             object_columns, "an error occurs in object column(s)."       
 
-    assert set(input_data[config["object_columns"][1]]).issubset(set(config["range_owner"])), \
+    assert set(input_data[config["object_columns"][0]]).issubset(set(config["range_owner"])), \
         "an error occurs in owner range."
-    assert set(input_data[config["object_columns"][2]]).issubset(set(config["range_selfemp"])), \
+    assert set(input_data[config["object_columns"][1]]).issubset(set(config["range_selfemp"])), \
         "an error occurs in selfemp range."
     assert input_data[config["int_columns"][0]].between(config["range_reports"][0], config["range_reports"][1]).sum() == \
         len(input_data), "an error occurs in reports range."

@@ -1,5 +1,4 @@
 # path
-PATH: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo
 dataset_original_path: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/raw/AER_credit_card_data.csv
 dataset_output_df_path: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/output_df.pkl
 dataset_input_df_path: /home/er_bim/ML-Process-Final-Project-Feb23-Bimo/data/processed/input_df.pkl
@@ -32,9 +31,9 @@ print_debug: True
 
 # columns by data type related
 object_columns:
-- card
 - owner
 - selfemp
+- card
 float_columns:
 - age
 - income
