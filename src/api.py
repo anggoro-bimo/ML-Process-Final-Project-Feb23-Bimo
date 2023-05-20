@@ -55,6 +55,12 @@ def predict(data: api_data):
         axis = 1
     )
 
+     # Check range data
+    try:
+        pipeline.check_data(data, config, True)
+    except AssertionError as ae:
+        return {"result": [], "error_msg": str(ae)}
+    
     # Data transformation
     data = preprocessing.cols_transform(data, config["cols_to_log"])
 
@@ -77,11 +83,11 @@ def predict(data: api_data):
     y_pred = model_data.predict(data)
 
     if y_pred[0] == 0:
-        y_pred = "Credit card application is not approved."
+        y_pred = "Your credit card application is NOT APPROVED."
     else:
-        y_pred = "Your credit card application is approved!"
+        y_pred = "Your credit card application is APPROVED!"
     
-    return {"result" : y_pred, "error_msg": "ERROR!"}
+    return {"result" : y_pred, "error_msg": "none"}  
 
 if __name__ == "__main__":
     uvicorn.run("api:app", host = "0.0.0.0", port = 8080)
