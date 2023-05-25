@@ -31,13 +31,12 @@ print_debug: True
 
 # columns by data type related
 object_columns:
+- card
 - owner
 - selfemp
-- card
 float_columns:
 - age
 - income
-- share
 - expenditure
 int_columns:
 - reports
@@ -73,9 +72,6 @@ range_age:
 range_income:
 - 0
 - 150000
-range_share:
-- 0
-- 100
 range_expenditure:
 - 0
 - 5000
