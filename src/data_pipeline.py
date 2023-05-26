@@ -16,6 +16,10 @@ def del_rows(dataset: pd.DataFrame, col: str, value: int) -> pd.DataFrame:
     dataset = dataset.loc[dataset[col] >= value].reset_index(drop = True)
     return dataset
 
+def del_col(dataset, col):
+    dataset = dataset.drop(col, axis = 1)
+    return dataset
+
 def check_data(input_data: pd.DataFrame, config: dict, api: bool = False):
     input_data = copy.deepcopy(input_data)
     config = copy.deepcopy(config)
@@ -32,15 +36,15 @@ def check_data(input_data: pd.DataFrame, config: dict, api: bool = False):
         # In case checking data from api
         # Exclude the "card" feature, which is not a predictor
         object_columns = config["object_columns"]
-        del object_columns[2] 
+        del object_columns[0] 
 
         # Check data types
         assert input_data.select_dtypes("object").columns.to_list() == \
             object_columns, "an error occurs in object column(s)."       
 
-    assert set(input_data[config["object_columns"][0]]).issubset(set(config["range_owner"])), \
+    assert set(input_data[config["object_columns"][0]]).issubset(set(config["range_object"])), \
         "an error occurs in owner range."
-    assert set(input_data[config["object_columns"][1]]).issubset(set(config["range_selfemp"])), \
+    assert set(input_data[config["object_columns"][1]]).issubset(set(config["range_object"])), \
         "an error occurs in selfemp range."
     assert input_data[config["int_columns"][0]].between(config["range_reports"][0], config["range_reports"][1]).sum() == \
         len(input_data), "an error occurs in reports range."
@@ -48,9 +52,7 @@ def check_data(input_data: pd.DataFrame, config: dict, api: bool = False):
         len(input_data), "an error occurs in age range."
     assert input_data[config["float_columns"][1]].between(config["range_income"][0], config["range_income"][1]).sum() == \
         len(input_data), "an error occurs in income range."
-    assert input_data[config["float_columns"][2]].between(config["range_share"][0], config["range_share"][1]).sum() == \
-        len(input_data), "an error occurs in share range."
-    assert input_data[config["float_columns"][3]].between(config["range_expenditure"][0], config["range_expenditure"][1]).sum() == \
+    assert input_data[config["float_columns"][2]].between(config["range_expenditure"][0], config["range_expenditure"][1]).sum() == \
         len(input_data), "an error occurs in expenditure range."
     assert input_data[config["int_columns"][1]].between(config["range_dependents"][0], config["range_dependents"][1]).sum() == \
         len(input_data), "an error occurs in dependents range."    
@@ -138,14 +140,18 @@ if __name__ == "__main__":
     # 3. Drop value <18 in feature 'age'
     credit_data = del_rows(credit_data, 'age', 18)
     print("Specific rows dropped.")
+    
+    # 4. Delete feature `share`
+    credit_data = del_col(credit_data, 'share')
+    print("Feature `share` deleted.")
 
-    # 4. Data Defense
+    # 5. Data Defense
     check_data(credit_data, config)
     print("Data defense mechanism activated.")
 
-    # 5. Data Splitting, separate the predictors and target
+    # 6. Data Splitting, separate the predictors and target
     output_df, input_df = split_input_output(credit_data, target_column = "card", save_file = False)
 
-    # 6. Data Splitting and saving as pickles
+    # 7. Data Splitting and saving as pickles
     x_train, y_train, x_valid, y_valid, x_test, y_test = split_data(input_df, output_df)
     print("Raw dataset splitted and dumped as pickles. Ready to progress to data preprocessing.")

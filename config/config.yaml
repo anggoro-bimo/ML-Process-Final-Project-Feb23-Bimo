@@ -45,7 +45,6 @@ int_columns:
 - majorcards
 - active
 
-
 # columns by dependency related
 target:
 - card
@@ -53,7 +52,6 @@ predictors:
 - reports
 - age
 - income
-- share
 - expenditure
 - owner
 - selfemp
@@ -87,13 +85,7 @@ range_majorcards:
 range_active:
 - 0
 - 50
-range_owner:
-- "yes"
-- "no"
-range_selfemp:
-- "yes"
-- "no"
-range_card: 
+range_object:
 - "yes"
 - "no"
 

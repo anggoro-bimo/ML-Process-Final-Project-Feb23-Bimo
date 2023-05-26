@@ -22,7 +22,6 @@ class api_data(BaseModel):
     reports: int
     age: int
     income: float
-    share: float
     expenditure: float
     owner: str
     selfemp: str
@@ -47,10 +46,9 @@ def predict(data: api_data):
     # Convert dtype
     data = pd.concat(
         [
-            data[config["predictors"][0]].astype(int),
-            data[config["predictors"][1:5]].astype(float),
-            data[config["predictors"][5:7]].astype(object),
-            data[config["predictors"][7:]].astype(int)
+            data[config["predictors"][:4]].astype(int),
+            data[config["predictors"][4:6]].astype(object),
+            data[config["predictors"][6:]].astype(int)
         ],
         axis = 1
     )
@@ -83,9 +81,9 @@ def predict(data: api_data):
     y_pred = model_data.predict(data)
 
     if y_pred[0] == 0:
-        y_pred = "Your credit card application is NOT APPROVED."
+        y_pred = "rejected"
     else:
-        y_pred = "Your credit card application is APPROVED!"
+        y_pred = "approved"
     
     return {"result" : y_pred, "error_msg": "none"}  
 
