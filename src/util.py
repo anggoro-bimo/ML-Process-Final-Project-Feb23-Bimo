@@ -1,5 +1,6 @@
 import yaml
 import joblib
+from datetime import datetime
 
 config_dir = "/home/er_bim/ML-Process-Final-Project-Feb23-Bimo/config/config.yaml"
 
@@ -24,6 +25,9 @@ def pkl_dump(data, file_path: str) -> None:
 
 params = load_config()
 PRINT_DEBUG = params["print_debug"]
+def time_stamp() -> datetime:
+    # Return current date and time
+    return datetime.now()
 
 def print_debug(messages: str) -> None:
     # Check whether user wants to use print or not
