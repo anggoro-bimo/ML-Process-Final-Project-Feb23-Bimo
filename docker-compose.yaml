@@ -1,0 +1,20 @@
+name: credit_card_application_prediction
+services:
+  streamlit:
+    build: docker/streamlit
+    image: streamlit_frontend
+    container_name: streamlit_frontend
+    depends_on:
+      - api
+    ports:
+      - 8501:8501
+    volumes:
+      - ./:/home/
+  api:
+    build: docker/api
+    image: api_backend
+    container_name: api_backend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/home/
